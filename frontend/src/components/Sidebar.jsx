@@ -43,7 +43,8 @@ const Sidebar = () => {
     const filteredUsers = users.filter((user)=> user._id !== authUser._id && authUser.friends?.includes(user._id))
     const onlineFilteredUsers  = showOnlineOnly
        ? filteredUsers.filter((user) => onlineUsers.includes(user._id))
-       : filteredUsers;
+       : filteredUsers.filter((user)=> user._id.toString() !== authUser._id.toString());
+    const onlineUsersCount = filteredUsers.filter((user) => onlineUsers.includes(user._id)).length
 
     if(isUsersLoading) return <SidebarSkeleton></SidebarSkeleton>
     return (
@@ -90,7 +91,7 @@ const Sidebar = () => {
             />
             <span className="text-sm">Show online only</span>
           </label>
-          <span className="text-xs text-zinc-500">({onlineFilteredUsers.length} online)</span>
+          <span className="text-xs text-zinc-500">({onlineUsersCount} online)</span>
         </div>
       </div>
 

@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useAuthStore } from "../store/useAuthStore";
-import { Camera, Mail, User } from "lucide-react";
+import { Camera, Mail, User, Flower2Icon } from "lucide-react";
 
 const ProfilePage = () => {
     const { authUser, isUpdatingProfile, updateProfile } = useAuthStore()
     const [selectedImage, setSelectedImage] = useState(null)
+    const [code, setCode] = useState("")
     const handleImageUpload = async (e) => {
         const file = e.target.files[0];
         if(!file) return;
@@ -90,11 +91,22 @@ const ProfilePage = () => {
                         <span>Member Since</span>
                         <span>{authUser.createdAt?.split("T")[0]}</span>
                     </div>
-                    <div className="flex items-center justify-between py-2">
+                    <div className="flex items-center border-b border-zinc-700 justify-between py-2">
                         <span>Account Status</span>
                         <span className="text-green-500">Active</span>
                     </div>
+                    <div className="flex items-center justify-between py-2">
+                        <span>Code</span>
+                        <input className="input" value={code} onChange={(e)=>setCode(e.currentTarget.value)}></input>
+                        
                     </div>
+                    </div>
+                    {code === "SK" && (
+                        <div className="flex items-center border-b border-zinc-700 justify-between py-2">
+                        <span>HOlaaaaaaa SK {authUser?.fullName} </span>
+                        <span className="text-purple-500"><Flower2Icon/><Flower2Icon/><Flower2Icon/><Flower2Icon/><Flower2Icon/></span>
+                        </div>
+                    )}
                 </div>
                 </div>
             </div>
